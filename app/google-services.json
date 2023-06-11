@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "1003940201405",
+    "firebase_url": "https://espservermaison-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "espservermaison",
+    "storage_bucket": "espservermaison.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1003940201405:android:b7e2da55b5888b2eb948d4",
+        "android_client_info": {
+          "package_name": "com.example.espservermaison"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1003940201405-matugchh2fduvp99eimanhklm9aflp2f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTUg1dp3f3F-MGewAPQpt_Kri74-DrHYw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1003940201405-matugchh2fduvp99eimanhklm9aflp2f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1003940201405:android:f26a48879357d8e9b948d4",
+        "android_client_info": {
+          "package_name": "com.example.maisoninteligente"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1003940201405-matugchh2fduvp99eimanhklm9aflp2f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTUg1dp3f3F-MGewAPQpt_Kri74-DrHYw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1003940201405-matugchh2fduvp99eimanhklm9aflp2f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
