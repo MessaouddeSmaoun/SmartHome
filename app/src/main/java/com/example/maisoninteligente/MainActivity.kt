@@ -23,6 +23,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.maisoninteligente.composeItemView.TimerAction
 import com.example.maisoninteligente.ui.theme.MaisonInteligenteTheme
 import kotlinx.coroutines.delay
 
@@ -35,7 +36,7 @@ class MainActivity : ComponentActivity() {
             LaunchedEffect(key1 = Unit) {
                 while (true){
                     viewModel.setStatConnexion()
-                    delay(1000)
+                    delay(5000)
                 }
 
             }
@@ -75,13 +76,9 @@ class MainActivity : ComponentActivity() {
 
                                 TextAction(viewModel.statButton1)
                                 Spacer(modifier = Modifier.height(40.dp))
-                                ButtonAction(
-                                    "Button 1",
-                                    "refButton1",
-                                    viewModel,
-                                    viewModel.statButton1,
-                                    viewModel.colorButton1
-                                )
+                                TimerAction(1, viewModel)
+                                Spacer(modifier = Modifier.height(40.dp))
+                                ButtonAction(1, viewModel)
 
                             }
 
@@ -92,17 +89,11 @@ class MainActivity : ComponentActivity() {
                                     .weight(1f),
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
-
                                 TextAction(viewModel.statButton2)
                                 Spacer(modifier = Modifier.height(40.dp))
-                                ButtonAction(
-                                    "Button 2",
-                                    "refButton2",
-                                    viewModel,
-                                    viewModel.statButton2,
-                                    viewModel.colorButton2
-                                )
-
+                                TimerAction(2, viewModel)
+                                Spacer(modifier = Modifier.height(40.dp))
+                                ButtonAction(2, viewModel)
                             }
                         }
 

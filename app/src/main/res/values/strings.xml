@@ -1,3 +1,22 @@
 <resources>
-    <string name="app_name">MaisonInteligente</string>
+    <string name="app_name" translatable="false">MaisonInteligente</string>
+
+
+    <string name="isOn" translatable="false">isOn</string>
+    <string name="isOff" translatable="false">isOff</string>
+    <string name="click" translatable="false">Click</string>
+    <string name="chrono" translatable="false">Chrono</string>
+
+
+    <string name="refStat1FB" translatable="false">optionButton1/stat</string>
+    <string name="refStat2FB" translatable="false">optionButton2/stat</string>
+    <string name="refEtat1FB" translatable="false">optionButton1/etat</string>
+    <string name="refEtat2FB" translatable="false">optionButton2/etat</string>
+    <string name="refMode1FB" translatable="false">optionButton1/mode</string>
+    <string name="refMode2FB" translatable="false">optionButton2/mode</string>
+    <string name="refTimer1FB" translatable="false">optionButton1/timer</string>
+    <string name="refTimer2FB" translatable="false">optionButton2/timer</string>
+    <string name="seton">setOn</string>
+    <string name="setoff">setOff</string>
+
 </resources>

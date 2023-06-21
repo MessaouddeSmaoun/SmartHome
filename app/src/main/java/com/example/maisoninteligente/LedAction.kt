@@ -24,7 +24,6 @@ import kotlinx.coroutines.flow.SharedFlow
 fun LedAction(statConnexion: SharedFlow<Int>) {
 
     var colorBack by remember { mutableStateOf(R.color.green) }
-    var txt by remember { mutableStateOf("0") }
 
     LaunchedEffect(key1 = Unit) {
         statConnexion.collect {
