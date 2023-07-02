@@ -20,6 +20,11 @@ import kotlinx.coroutines.launch
 
 class ViewModelAction : ViewModel() {
 
+    var mode1 = "Chrono"
+    var mode2 = "Click"
+    var timer1 = "10"
+    var timer2 = "10"
+
     private val database = Firebase.database
     private val etatButton1 = database.getReference("optionButton1/etat")
     private val etatButton2 = database.getReference("optionButton2/etat")
@@ -50,10 +55,10 @@ class ViewModelAction : ViewModel() {
     private val _modeFlowButton2 = MutableSharedFlow<String>()
     val modeFlowButton2 = _modeFlowButton2.asSharedFlow()
 
-    private val _timerFlowButton1 = MutableSharedFlow<Int>()
+    private val _timerFlowButton1 = MutableSharedFlow<String>()
     val timerFlowButton1 = _timerFlowButton1.asSharedFlow()
 
-    private val _timerFlowButton2 = MutableSharedFlow<Int>()
+    private val _timerFlowButton2 = MutableSharedFlow<String>()
     val timerFlowButton2 = _timerFlowButton2.asSharedFlow()
 
     private val _enableButton1 = MutableSharedFlow<Boolean>()
@@ -85,7 +90,7 @@ class ViewModelAction : ViewModel() {
                     _statButton1.emit(txt)
                     when (txt) {
                         "isOn" -> {
-                            _colorButton1.emit(R.color.orange)
+                            _colorButton1.emit(R.color.red)
                             _enableButton1.emit(false)
                         }
                         "isOff" -> {
@@ -107,7 +112,7 @@ class ViewModelAction : ViewModel() {
                     _statButton2.emit(txt)
                     when (txt) {
                         "isOn" -> {
-                            _colorButton2.emit(R.color.orange)
+                            _colorButton2.emit(R.color.red)
                             _enableButton2.emit(false)
                         }
                         "isOff" -> {
@@ -156,9 +161,9 @@ class ViewModelAction : ViewModel() {
         })
         timerButton1.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val txt = snapshot.getValue<Int>()!!.toInt()
+                val txt = snapshot.getValue<String>()!!.toInt()
                 viewModelScope.launch {
-                    _timerFlowButton1.emit(txt)
+                    _timerFlowButton1.emit(txt.toString())
                 }
             }
 
@@ -168,9 +173,9 @@ class ViewModelAction : ViewModel() {
         })
         timerButton2.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val txt = snapshot.getValue<Int>()!!.toInt()
+                val txt = snapshot.getValue<String>()!!.toInt()
                 viewModelScope.launch {
-                    _timerFlowButton2.emit(txt)
+                    _timerFlowButton2.emit(txt.toString())
                 }
             }
 
@@ -182,43 +187,51 @@ class ViewModelAction : ViewModel() {
 
     fun setTimerButton(ref: Int, updateTimer: Int) {
         when (ref) {
-            1 -> viewModelScope.launch { _timerFlowButton1.emit(updateTimer) }
-            2 -> viewModelScope.launch { _timerFlowButton2.emit(updateTimer) }
+            1 -> timer1 = updateTimer.toString()
+            2 -> timer2 = updateTimer.toString()
         }
     }
     fun setModeButton(ref: Int, updateMode: String) {
         when (ref) {
-            1 -> viewModelScope.launch { _modeFlowButton1.emit(updateMode) }
-            2 -> viewModelScope.launch { _modeFlowButton2.emit(updateMode) }
+            1 -> mode1 = updateMode
+            2 -> mode2 = updateMode
         }
+
+        Log.d("tag","mode1 $mode1")
+        Log.d("tag","mode2 $mode2")
     }
-    fun setStatButton(context: Context, refButton: Int, stat: String, mode: String, timer: Int) {
+    fun setStatButton(context: Context, refButton: Int, etat: String) {
 
         lateinit var pathFBStat: String
         lateinit var pathFBMode: String
         lateinit var pathFBTimer: String
+        lateinit var mode: String
+        lateinit var timer: String
 
 
         when (refButton) {
             1 -> {
-                pathFBStat = context.getString(R.string.refStat1FB)
+                pathFBStat = context.getString(R.string.refEtat1FB)
                 pathFBMode = context.getString(R.string.refMode1FB)
                 pathFBTimer = context.getString(R.string.refTimer1FB)
-
+                mode = mode1
+                timer = timer1
             }
             2 -> {
-                pathFBStat = context.getString(R.string.refStat2FB)
+                pathFBStat = context.getString(R.string.refEtat2FB)
                 pathFBMode = context.getString(R.string.refMode2FB)
                 pathFBTimer = context.getString(R.string.refTimer2FB)
+                mode = mode2
+                timer = timer2
             }
         }
 
-        var myRef = database.getReference(pathFBStat)
-        myRef.setValue(stat)
-        myRef = database.getReference(pathFBMode)
-        myRef.setValue(mode)
-        myRef = database.getReference(pathFBTimer)
-        myRef.setValue(timer)
+        val myRef = database.getReference(pathFBStat)
+        myRef.setValue(etat)
+        val myRef1 = database.getReference(pathFBMode)
+        myRef1.setValue(mode)
+        val myRef2 = database.getReference(pathFBTimer)
+        myRef2.setValue(timer)
     }
 
     fun setStatConnexion() {

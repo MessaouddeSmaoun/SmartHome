@@ -27,9 +27,8 @@ fun ButtonAction(
 
     val context = LocalContext.current
     var stat by remember { mutableStateOf("") }
-    var timer by remember { mutableStateOf(10) }
-    var mode by remember { mutableStateOf("Click") }
     var colorBack by remember { mutableStateOf(R.color.green) }
+    var titre by remember { mutableStateOf("") }
 
     val isOn = stringResource(id = R.string.isOn)
     val isOff = stringResource(id = R.string.isOff)
@@ -38,42 +37,26 @@ fun ButtonAction(
 
     lateinit var sharedFlowColor : SharedFlow<Int>
     lateinit var sharedFlowStat : SharedFlow<String>
-    lateinit var sharedFlowMode : SharedFlow<String>
-    lateinit var sharedFlowTimer : SharedFlow<Int>
-    lateinit var sharedFlowEnable : SharedFlow<Boolean>
-
-
 
     when (refButton) {
        1 -> {
            sharedFlowStat = viewModel.statButton1
            sharedFlowColor = viewModel.colorButton1
-           sharedFlowMode = viewModel.modeFlowButton1
-           sharedFlowTimer = viewModel.timerFlowButton1
+           titre = "Pompe"
        }
        2 -> {
            sharedFlowStat = viewModel.statButton2
            sharedFlowColor = viewModel.colorButton2
-           sharedFlowMode = viewModel.modeFlowButton2
-           sharedFlowTimer = viewModel.timerFlowButton2
+           titre = "Null"
        }
     }
 
     LaunchedEffect(key1 = Unit) {
-        sharedFlowMode.collect {
-            mode = it
-        }
-    }
-    LaunchedEffect(key1 = Unit) {
-        sharedFlowTimer.collect {
-            timer = it
-        }
-    }
-    LaunchedEffect(key1 = Unit) {
         sharedFlowStat.collect {
-            when(it){
-                isOn  -> stat = setoff
-                isOff -> stat = seton
+            stat = when(it){
+                isOff -> seton
+                else  -> setoff
+
             }
         }
     }
@@ -86,7 +69,8 @@ fun ButtonAction(
 
     Button(
         onClick = {
-            viewModel.setStatButton(context, refButton,stat = stat, mode = mode, timer = timer)
+            viewModel.setStatButton(context, refButton,etat = stat)
+            colorBack = R.color.orange
             Log.i("tag","click")
         },
         colors = ButtonDefaults.buttonColors(colorResource(id = colorBack)),
@@ -94,6 +78,6 @@ fun ButtonAction(
         modifier = Modifier
             .fillMaxWidth(1f)
     ) {
-        Text(text = "Button $refButton")
+        Text(text = titre)
     }
 }

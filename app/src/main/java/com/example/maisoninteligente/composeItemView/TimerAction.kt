@@ -36,6 +36,7 @@ fun TimerAction(
 
     lateinit var sharedFlowStat: SharedFlow<String>
     lateinit var sharedFlowMode: SharedFlow<String>
+    lateinit var sharedFlowTimer: SharedFlow<String>
 
     val isOn = stringResource(id = R.string.isOn)
     val isOff = stringResource(id = R.string.isOff)
@@ -46,11 +47,13 @@ fun TimerAction(
         1 -> {
             sharedFlowStat = viewModel.statButton1
             sharedFlowMode = viewModel.modeFlowButton1
+            sharedFlowTimer = viewModel.timerFlowButton1
         }
 
         2 -> {
             sharedFlowStat = viewModel.statButton2
             sharedFlowMode = viewModel.modeFlowButton2
+            sharedFlowTimer = viewModel.timerFlowButton2
         }
     }
 
@@ -70,6 +73,11 @@ fun TimerAction(
                 click -> isEnableMode = false
                 chrono -> isEnableMode = true
             }
+        }
+    }
+    LaunchedEffect(key1 = Unit) {
+        sharedFlowTimer.collect {
+            timerNumber = it.toInt()
         }
     }
     Row(
@@ -96,7 +104,8 @@ fun TimerAction(
                 .fillMaxWidth(0.5f)
                 .padding(vertical = 10.dp, horizontal = 10.dp),
             text = timerNumber.toString(),
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            fontSize = 18.sp
 
         )
 
